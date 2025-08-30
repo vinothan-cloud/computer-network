@@ -1,0 +1,53 @@
+33
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+void bitStuffing(int input[], int n) {
+    int output[MAX], i, j = 0, count = 0;
+
+    // Start Flag
+    printf("Flag: 01111110\n");
+
+    for (i = 0; i < n; i++) {
+        output[j++] = input[i];
+
+        // Check for five consecutive 1s
+        if (input[i] == 1) {
+            count++;
+            if (count == 5) {
+                output[j++] = 0;  // Insert stuffed bit
+                count = 0;  // Reset count after stuffing
+            }
+        } else {
+            count = 0;  // Reset count when a 0 is found
+        }
+    }
+
+    // Print stuffed output
+    printf("Bit Stuffed Data: ");
+    for (i = 0; i < j; i++) {
+        printf("%d", output[i]);
+    }
+    printf("\n");
+
+    // End Flag
+    printf("Flag: 01111110\n");
+}
+
+int main() {
+    int input[MAX], n, i;
+
+    printf("Enter the number of bits: ");
+    scanf("%d", &n);
+
+    printf("Enter the bit sequence (0s and 1s only):\n");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &input[i]);
+    }
+
+    bitStuffing(input, n);
+
+    return 0;
+}
